@@ -41,7 +41,6 @@ public class FibonachiAction {
             FibonachiLogic o = new FibonachiLogic();
             o.makeDirty(number);
             System.out.println("2nd Else OK");
-            //play(number);
         }
         return play(number);
     }

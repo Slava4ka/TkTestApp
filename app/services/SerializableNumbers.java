@@ -17,10 +17,8 @@ public class SerializableNumbers implements Serializable{
         this.size = size;
     }
 
-    // переменная со значением n (длина)
     private int size = 0;
 
-    // коллекция с числами до n
     private ArrayList <BigInteger> mass = new ArrayList();
 
     public ArrayList<BigInteger> getMass() {

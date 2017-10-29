@@ -10,8 +10,6 @@ import java.util.ArrayList;
  * @author v.osepyan
  */
 public class FibonachiLogic {
-    //класс с методами для получения чисел фибоначи
-
     public void makeDirty(int number) {
 
         ArrayList<BigInteger> mass = new ArrayList();
@@ -21,7 +19,7 @@ public class FibonachiLogic {
             for (int i = 0; i <= number; i++) {
                 BigInteger ee = BigInteger.valueOf(i);
                 mass.add(fibonachiBigInteger(ee));
-                System.out.println("fibonachiBigInteger №"+i+" "+mass.get(i));
+                System.out.println("fibonachiBigInteger №" + i + " " + mass.get(i));
             }
 
             SerializableNumbers s = new SerializableNumbers();
@@ -33,7 +31,7 @@ public class FibonachiLogic {
         } else {
             for (int i = 0; i <= number; i++) {
                 mass.add(BigInteger.valueOf(fibonachi(i)));
-                System.out.println("fibonachi №"+i+" "+mass.get(i));
+                System.out.println("fibonachi №" + i + " " + mass.get(i));
             }
 
             SerializableNumbers s = new SerializableNumbers();
@@ -79,7 +77,7 @@ public class FibonachiLogic {
         }
     }
 
-    protected void serialize(SerializableNumbers FibonachiSequenceArray){
+    protected void serialize(SerializableNumbers FibonachiSequenceArray) {
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("FibonachiSequence.txt"));
             os.writeObject(FibonachiSequenceArray);

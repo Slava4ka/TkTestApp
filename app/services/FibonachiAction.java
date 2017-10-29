@@ -16,8 +16,7 @@ public class FibonachiAction {
     }
 
     public FibonachiAction(int n) {
-        sequence = play(n); // массив с БигИнтами, в которых хранится значения
-
+        sequence = play(n);
     }
 
     private ArrayList play(int number) {
@@ -25,7 +24,6 @@ public class FibonachiAction {
         if (new File("FibonachiSequence.txt").exists()) {
             ArrayList sequence = getMassNumbers(number);
 
-            // если грица входит в сохраненный массив
             if (number <= sequence.size()) {
                 ArrayList temp = new ArrayList();
                 for (int i = 0; i < number; i++) {
@@ -38,7 +36,6 @@ public class FibonachiAction {
 
                 System.out.println("1st Else OK");
 
-                //play(number);
             }
         } else {
             FibonachiLogic o = new FibonachiLogic();

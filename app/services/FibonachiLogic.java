@@ -7,22 +7,32 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import play.Logger;
 
+import javax.inject.Singleton;
+
 
 /**
  * @author v.osepyan
  */
-public class FibonachiAction {
+@Singleton
+public class FibonachiLogic implements IntermediaryLogicService {
 
     private ArrayList sequence;
 
-    public ArrayList getSequence() {
+    @Override
+    public ArrayList makeFibonachiSequence(int number) {
+        sequence = play(number);
         return sequence;
     }
 
-    public FibonachiAction(int n) {
 
+  /*  public ArrayList getSequence() {
+        return sequence;
+    }*/
+
+
+  /*  public FibonachiLogic(int n) {
         sequence = play(n);
-    }
+    }*/
 
     private ArrayList play(int number) {
 

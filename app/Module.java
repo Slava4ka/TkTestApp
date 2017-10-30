@@ -7,6 +7,7 @@ public class Module extends AbstractModule {
     public void configure() {
 
         bind(IntermediaryFibo.class).to(FibonachiService.class);
+        bind(IntermediaryLogicService.class).to(FibonachiLogic.class);
     }
 
 }

@@ -1,7 +1,6 @@
 package controllers;
 
 import model.SequenceModel;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.IntermediaryFibo;
@@ -24,9 +23,8 @@ public class FibonachiControler extends Controller {
     }
 
     public Result count(int n) {
-        SequenceModel sequence = new SequenceModel();
-        sequence.sequence = intermediaryFibo.getFibonachiSequence(n);
-        return ok(Json.toJson(sequence));
+        SequenceModel sequence = new SequenceModel(intermediaryFibo.getFibonachiSequence(n));
+        return ok(sequence.getSequenceJson());
     }
 
 }

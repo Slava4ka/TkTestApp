@@ -5,11 +5,14 @@ import model.SerializableNumbers;
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import play.Logger;
+
 
 /**
  * @author v.osepyan
  */
 public class FibonachiAction {
+
     private ArrayList sequence;
 
     public ArrayList getSequence() {
@@ -27,21 +30,23 @@ public class FibonachiAction {
             ArrayList sequence = getMassNumbers(number);
 
             if (number <= sequence.size()) {
+                Logger.debug("Normal size ("+number+"), sequence get from file(size "+sequence.size()+");");
                 ArrayList temp = new ArrayList();
                 for (int i = 0; i < number; i++) {
                     temp.add(sequence.get(i));
                 }
                 return temp;
             } else {
-                getFibonachiSequence(number);
+                Logger.debug("New sequence, size too big.");
 
-                System.out.println("1st Else OK");
+                getFibonachiSequence(number);
 
             }
         } else {
+            Logger.debug("No file, create it");
+
             getFibonachiSequence(number);
 
-            System.out.println("2nd Else OK");
         }
         return play(number);
     }
@@ -67,7 +72,7 @@ public class FibonachiAction {
             for (int i = 0; i <= number; i++) {
                 BigInteger tempFibonachiNumber = BigInteger.valueOf(i);
                 mass.add(countFibonachiSequenceInBigInteger(tempFibonachiNumber));
-                System.out.println("fibonachiBigInteger №" + i + " " + mass.get(i));
+               Logger.info("fibonachiBigInteger N" + i + " " + mass.get(i));
             }
 
             SerializableNumbers serializableNumbers = new SerializableNumbers();
@@ -79,7 +84,7 @@ public class FibonachiAction {
         } else {
             for (int i = 0; i <= number; i++) {
                 mass.add(BigInteger.valueOf(countFibonachiSequenceInInt(i)));
-                System.out.println("fibonachi №" + i + " " + mass.get(i));
+                Logger.info("fibonachi N" + i + " " + mass.get(i));
             }
 
             SerializableNumbers serializableNumbers = new SerializableNumbers();

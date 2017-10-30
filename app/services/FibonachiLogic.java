@@ -5,6 +5,7 @@ import model.SerializableNumbers;
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
+
 import play.Logger;
 
 import javax.inject.Singleton;
@@ -24,23 +25,13 @@ public class FibonachiLogic implements IntermediaryLogicService {
         return sequence;
     }
 
-
-  /*  public ArrayList getSequence() {
-        return sequence;
-    }*/
-
-
-  /*  public FibonachiLogic(int n) {
-        sequence = play(n);
-    }*/
-
     private ArrayList play(int number) {
 
         if (new File("FibonachiSequence.txt").exists()) {
             ArrayList sequence = getMassNumbers(number);
 
             if (number <= sequence.size()) {
-                Logger.debug("Normal size ("+number+"), sequence get from file(size "+sequence.size()+");");
+                Logger.debug("Normal size (" + number + "), sequence get from file(size " + sequence.size() + ");");
                 ArrayList temp = new ArrayList();
                 for (int i = 0; i < number; i++) {
                     temp.add(sequence.get(i));
@@ -82,7 +73,7 @@ public class FibonachiLogic implements IntermediaryLogicService {
             for (int i = 0; i <= number; i++) {
                 BigInteger tempFibonachiNumber = BigInteger.valueOf(i);
                 mass.add(countFibonachiSequenceInBigInteger(tempFibonachiNumber));
-               Logger.info("fibonachiBigInteger N" + i + " " + mass.get(i));
+                Logger.info("fibonachiBigInteger N" + i + " " + mass.get(i));
             }
 
             SerializableNumbers serializableNumbers = new SerializableNumbers();

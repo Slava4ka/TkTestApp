@@ -12,6 +12,6 @@ public class SequenceModel {
     }
 
     public SequenceModel(String sequenceString) {
-        this.sequenceJson = Json.toJson(sequenceJson);
+        this.sequenceJson = Json.toJson(sequenceString);
     }
 }

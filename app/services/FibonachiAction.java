@@ -1,8 +1,9 @@
 package services;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+import model.SerializableNumbers;
+
+import java.io.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +17,7 @@ public class FibonachiAction {
     }
 
     public FibonachiAction(int n) {
+
         sequence = play(n);
     }
 
@@ -31,15 +33,14 @@ public class FibonachiAction {
                 }
                 return temp;
             } else {
-                FibonachiLogic o = new FibonachiLogic();
-                o.makeDirty(number);
+                getFibonachiSequence(number);
 
                 System.out.println("1st Else OK");
 
             }
         } else {
-            FibonachiLogic o = new FibonachiLogic();
-            o.makeDirty(number);
+            getFibonachiSequence(number);
+
             System.out.println("2nd Else OK");
         }
         return play(number);
@@ -57,4 +58,80 @@ public class FibonachiAction {
         return null;
     }
 
+    public void getFibonachiSequence(int number) {
+
+        ArrayList<BigInteger> mass = new ArrayList();
+
+        if (number > 45) {
+
+            for (int i = 0; i <= number; i++) {
+                BigInteger tempFibonachiNumber = BigInteger.valueOf(i);
+                mass.add(countFibonachiSequenceInBigInteger(tempFibonachiNumber));
+                System.out.println("fibonachiBigInteger №" + i + " " + mass.get(i));
+            }
+
+            SerializableNumbers serializableNumbers = new SerializableNumbers();
+            serializableNumbers.setSize(mass.size());
+            serializableNumbers.setMass(mass);
+
+            serialize(serializableNumbers);
+
+        } else {
+            for (int i = 0; i <= number; i++) {
+                mass.add(BigInteger.valueOf(countFibonachiSequenceInInt(i)));
+                System.out.println("fibonachi №" + i + " " + mass.get(i));
+            }
+
+            SerializableNumbers serializableNumbers = new SerializableNumbers();
+            serializableNumbers.setSize(mass.size());
+            serializableNumbers.setMass(mass);
+
+            serialize(serializableNumbers);
+        }
+    }
+
+    protected int countFibonachiSequenceInInt(int n) {
+
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return 1;
+        } else {
+            int x = countFibonachiSequenceInInt(n - 1) + countFibonachiSequenceInInt(n - 2);
+            return x;
+        }
+    }
+
+    protected BigInteger countFibonachiSequenceInBigInteger(BigInteger n) {
+        BigInteger zero = BigInteger.valueOf(0);
+        BigInteger one = BigInteger.valueOf(1);
+
+        BigInteger minOne = BigInteger.valueOf(-1);
+        BigInteger minTwo = BigInteger.valueOf(-2);
+
+        if (n.equals(zero)) {
+            return zero;
+        }
+        if (n.equals(one)) {
+            return one;
+        } else {
+            BigInteger x1 = countFibonachiSequenceInBigInteger(n.add(minOne));
+            BigInteger x2 = countFibonachiSequenceInBigInteger(n.add(minTwo));
+
+            BigInteger x = x1.add(x2);
+            return x;
+
+        }
+    }
+
+    protected void serialize(SerializableNumbers FibonachiSequenceArray) {
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("FibonachiSequence.txt"));
+            os.writeObject(FibonachiSequenceArray);
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

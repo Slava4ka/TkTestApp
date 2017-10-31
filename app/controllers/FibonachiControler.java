@@ -3,7 +3,7 @@ package controllers;
 import model.SequenceModel;
 import play.mvc.Controller;
 import play.mvc.Result;
-import services.IntermediaryFibo;
+import services.InterfaceFibonachiService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,15 +15,15 @@ import javax.inject.Singleton;
 @Singleton
 public class FibonachiControler extends Controller {
 
-    private final IntermediaryFibo intermediaryFibo;
+    private final InterfaceFibonachiService interfaceFibonachiService;
 
     @Inject
-    public FibonachiControler(IntermediaryFibo intermediaryFibo) {
-        this.intermediaryFibo = intermediaryFibo;
+    public FibonachiControler(InterfaceFibonachiService interfaceFibonachiService) {
+        this.interfaceFibonachiService = interfaceFibonachiService;
     }
 
     public Result count(int n) {
-        SequenceModel sequence = new SequenceModel(intermediaryFibo.getFibonachiSequence(n));
+        SequenceModel sequence = new SequenceModel(interfaceFibonachiService.getFibonachiSequence(n));
         return ok(sequence.getSequenceJson());
     }
 

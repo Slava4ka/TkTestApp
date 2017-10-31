@@ -5,6 +5,6 @@ import java.util.ArrayList;
 /**
  * @author v.osepyan
  */
-public interface IntermediaryLogicService {
+public interface InterfaceLogic {
     ArrayList makeFibonachiSequence(int number);
 }

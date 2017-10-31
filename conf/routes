@@ -1,1 +1,1 @@
-GET        /f/:n                  controllers.FibonachiControler.count(n : Int)
+GET        /:n                 controllers.FibonachiControler.count(n : Int)

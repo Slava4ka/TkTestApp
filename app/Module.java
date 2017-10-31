@@ -6,8 +6,8 @@ public class Module extends AbstractModule {
     @Override
     public void configure() {
 
-        bind(IntermediaryFibo.class).to(FibonachiService.class);
-        bind(IntermediaryLogicService.class).to(FibonachiLogic.class);
+        bind(InterfaceFibonachiService.class).to(FibonachiService.class);
+        bind(InterfaceLogic.class).to(FibonachiLogic.class);
     }
 
 }

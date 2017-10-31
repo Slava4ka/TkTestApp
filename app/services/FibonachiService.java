@@ -8,19 +8,19 @@ import java.util.ArrayList;
  */
 
 @Singleton
-public class FibonachiService implements IntermediaryFibo{
+public class FibonachiService implements InterfaceFibonachiService {
 
-    private final IntermediaryLogicService intermediaryLogicService;
+    private final InterfaceLogic interfaceLogic;
 
     @Inject
-    public FibonachiService(IntermediaryLogicService intermediaryLogicService) {
-        this.intermediaryLogicService = intermediaryLogicService;
+    public FibonachiService(InterfaceLogic interfaceLogic) {
+        this.interfaceLogic = interfaceLogic;
     }
 
     @Override
     public String getFibonachiSequence(int n) {
         String a = "0";
-        ArrayList tempSeq = intermediaryLogicService.makeFibonachiSequence(n);
+        ArrayList tempSeq = interfaceLogic.makeFibonachiSequence(n);
         for (int i=1; i<tempSeq.size(); i++){
             a += ", " + tempSeq.get(i).toString();
         }

@@ -3,6 +3,6 @@ package services;
 /**
  * @author v.osepyan
  */
-public interface IntermediaryFibo {
+public interface InterfaceFibonachiService {
     String getFibonachiSequence(int n);
 }

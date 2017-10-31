@@ -15,7 +15,7 @@ import javax.inject.Singleton;
  * @author v.osepyan
  */
 @Singleton
-public class FibonachiLogic implements IntermediaryLogicService {
+public class FibonachiLogic implements InterfaceLogic {
 
     private ArrayList sequence;
 
@@ -64,29 +64,12 @@ public class FibonachiLogic implements IntermediaryLogicService {
         return null;
     }
 
-    public void getFibonachiSequence(int number) {
+    private void getFibonachiSequence(int number) {
 
-        ArrayList<BigInteger> mass = new ArrayList();
-
-        if (number > 45) {
-
-            for (int i = 0; i <= number; i++) {
-                BigInteger tempFibonachiNumber = BigInteger.valueOf(i);
-                mass.add(countFibonachiSequenceInBigInteger(tempFibonachiNumber));
-                Logger.info("fibonachiBigInteger N" + i + " " + mass.get(i));
-            }
-
-            SerializableNumbers serializableNumbers = new SerializableNumbers();
-            serializableNumbers.setSize(mass.size());
-            serializableNumbers.setMass(mass);
-
-            serialize(serializableNumbers);
-
-        } else {
-            for (int i = 0; i <= number; i++) {
-                mass.add(BigInteger.valueOf(countFibonachiSequenceInInt(i)));
-                Logger.info("fibonachi N" + i + " " + mass.get(i));
-            }
+        long startTime = System.currentTimeMillis();
+        ArrayList<BigInteger> mass = countFibonachiSequence(number);
+        long timeSpent = System.currentTimeMillis() - startTime;
+        Logger.info("Time of counting sequence is "+timeSpent+" ms");
 
             SerializableNumbers serializableNumbers = new SerializableNumbers();
             serializableNumbers.setSize(mass.size());
@@ -94,44 +77,45 @@ public class FibonachiLogic implements IntermediaryLogicService {
 
             serialize(serializableNumbers);
         }
-    }
 
-    protected int countFibonachiSequenceInInt(int n) {
+
+    private ArrayList countFibonachiSequence(int n) {
+        ArrayList<BigInteger> sequenceFibonachi = new ArrayList<BigInteger>();
 
         if (n == 0) {
-            return 0;
+            return sequenceFibonachi;
         }
+        BigInteger o = BigInteger.valueOf(0);
+        BigInteger a = BigInteger.valueOf(1);
+        BigInteger b = BigInteger.valueOf(1);
+
+        sequenceFibonachi.add(o);
         if (n == 1) {
-            return 1;
-        } else {
-            int x = countFibonachiSequenceInInt(n - 1) + countFibonachiSequenceInInt(n - 2);
-            return x;
+            return sequenceFibonachi;
         }
+        sequenceFibonachi.add(a);
+        if (n == 2) {
+            return sequenceFibonachi;
+        }
+        sequenceFibonachi.add(b);
+        if (n == 3) {
+            return sequenceFibonachi;
+        }
+
+        int i = 3;
+        BigInteger fib;
+        while (i < n) {
+            fib = a.add(b);
+            a = b;
+            b = fib;
+            sequenceFibonachi.add(fib);
+            i++;
+        }
+        System.out.println();
+        return sequenceFibonachi;
     }
 
-    protected BigInteger countFibonachiSequenceInBigInteger(BigInteger n) {
-        BigInteger zero = BigInteger.valueOf(0);
-        BigInteger one = BigInteger.valueOf(1);
-
-        BigInteger minOne = BigInteger.valueOf(-1);
-        BigInteger minTwo = BigInteger.valueOf(-2);
-
-        if (n.equals(zero)) {
-            return zero;
-        }
-        if (n.equals(one)) {
-            return one;
-        } else {
-            BigInteger x1 = countFibonachiSequenceInBigInteger(n.add(minOne));
-            BigInteger x2 = countFibonachiSequenceInBigInteger(n.add(minTwo));
-
-            BigInteger x = x1.add(x2);
-            return x;
-
-        }
-    }
-
-    protected void serialize(SerializableNumbers FibonachiSequenceArray) {
+    private void serialize(SerializableNumbers FibonachiSequenceArray) {
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("FibonachiSequence.txt"));
             os.writeObject(FibonachiSequenceArray);

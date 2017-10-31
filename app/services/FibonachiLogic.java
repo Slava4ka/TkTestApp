@@ -15,7 +15,7 @@ import javax.inject.Singleton;
  * @author v.osepyan
  */
 @Singleton
-public class FibonachiLogic implements IntermediaryLogicService {
+public class FibonachiLogic implements InterfaceLogic {
 
     private ArrayList sequence;
 
@@ -64,7 +64,7 @@ public class FibonachiLogic implements IntermediaryLogicService {
         return null;
     }
 
-    public void getFibonachiSequence(int number) {
+    private void getFibonachiSequence(int number) {
 
         long startTime = System.currentTimeMillis();
         ArrayList<BigInteger> mass = countFibonachiSequence(number);
@@ -79,7 +79,7 @@ public class FibonachiLogic implements IntermediaryLogicService {
         }
 
 
-    public ArrayList countFibonachiSequence(int n) {
+    private ArrayList countFibonachiSequence(int n) {
         ArrayList<BigInteger> sequenceFibonachi = new ArrayList<BigInteger>();
 
         if (n == 0) {
@@ -115,7 +115,7 @@ public class FibonachiLogic implements IntermediaryLogicService {
         return sequenceFibonachi;
     }
 
-    protected void serialize(SerializableNumbers FibonachiSequenceArray) {
+    private void serialize(SerializableNumbers FibonachiSequenceArray) {
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("FibonachiSequence.txt"));
             os.writeObject(FibonachiSequenceArray);
